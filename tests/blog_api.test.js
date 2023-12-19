@@ -86,6 +86,20 @@ test('does not accept missing title or url', async () => {
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
 })
 
+test('succeeds with status code 204 if id is valid', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+
+    await api
+        .delete(`/api/blogs/${blogsAtStart[0].id}`)
+        .expect(204)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1)
+
+    const titles = blogsAtEnd.map(b => b.title)
+    expect(titles).not.toContain(blogsAtStart[0].title)
+})
+
 
 afterAll(async () => {
     await mongoose.connection.close()
