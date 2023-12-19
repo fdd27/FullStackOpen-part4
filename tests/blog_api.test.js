@@ -53,6 +53,24 @@ test('making post request successfully creates a new blog', async () => {
     expect(authors).toContain('Coding legend')
 })
 
+test('if likes missing, defaults to 0', async () => {
+    const newBlog = {
+        author: "One wise guy",
+        title: "Aliens are real",
+        url: "meetaliens.net",
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    const titles = blogsAtEnd.map(b => b.title)
+    expect(titles).toContain(newBlog.title)
+})
+
 
 afterAll(async () => {
     await mongoose.connection.close()
