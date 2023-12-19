@@ -71,6 +71,21 @@ test('if likes missing, defaults to 0', async () => {
     expect(titles).toContain(newBlog.title)
 })
 
+test('does not accept missing title or url', async () => {
+    const newBlog = {
+        author: "Not gonna happen",
+        likes: 5
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
+})
+
 
 afterAll(async () => {
     await mongoose.connection.close()
