@@ -11,13 +11,13 @@ const initialBlogs = [
         title: 'How to unlock giga-brain',
         author: 'Giga-brainiac',
         url: 'gigabrain.com',
-        likes: '6',
+        likes: 6,
     },
     {
         title: 'Cats are dumb',
         author: 'Ihatecats',
         url: 'stoopidcats.com',
-        likes: '9',
+        likes: 9,
     },
 ]
 

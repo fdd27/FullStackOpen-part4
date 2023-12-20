@@ -100,6 +100,19 @@ test('succeeds with status code 204 if id is valid', async () => {
     expect(titles).not.toContain(blogsAtStart[0].title)
 })
 
+test('valid update succeeds', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const updatedBlog = { ...blogsAtStart[0], likes: 69 }
+
+    await api
+        .put(`/api/blogs/${updatedBlog.id}`)
+        .send(updatedBlog)
+        .expect(200)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toContainEqual(updatedBlog)
+})
+
 
 afterAll(async () => {
     await mongoose.connection.close()
