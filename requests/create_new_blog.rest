@@ -1,9 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZkZDIiLCJpZCI6IjY1OGFhMjcyOGQ2ZWM4YjNjNGIyYWE5MSIsImlhdCI6MTcwMzc3MzEwNH0.UrlGS4rViVzIE53exDm0G3b7tZMt5oP_EBMp2YJTexs
 
 {
-    "title": "Blog 2",
-    "author": "Austin Faustin",
-    "url": "www.austinfaustin.com/blog",
-    "likes": 420
+    "title": "DELETE ME RN OR ELSE",
+    "author": "some1",
+    "url": "www.deleteme.pls",
+    "likes": 0
 }
