@@ -41,7 +41,7 @@ blogsRouter.delete('/:id', async (request, response) => {
     const user = request.user
     const blog = await Blog.findById(request.params.id)
 
-    if (blog.user.toString() !== user.id) {
+    if (blog.user.id.toString() !== user.id) {
         return response.status(401).json({ error: 'invalid user' })
     }
     
@@ -50,11 +50,20 @@ blogsRouter.delete('/:id', async (request, response) => {
 })
 
 blogsRouter.put('/:id', async (request, response) => {
+    const user = request.user
+    const blog = await Blog.findById(request.params.id)
+    if (blog.user.id.toString() !== user.id) return response.status(401).json({ error: 'invalid user' }) 
+
     const newBlog = {
         title: request.body.title,
         author: request.body.author,
         url: request.body.url,
-        likes: request.body.likes
+        likes: request.body.likes,
+        user: {
+            id: request.user.id,
+            username: request.user.username,
+            name: request.user.name
+        }
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, newBlog, { new: true })
